@@ -1,0 +1,83 @@
+/* General reset for margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+}
+
+/* Heading styling */
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Container styling */
+#container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Counter display styling */
+#counter {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/* Control buttons styling */
+#controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#btnStart {
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+
+#btnStop {
+    background-color: #f44336;
+    color: #ffffff;
+}
+
+#btnReset {
+    background-color: #2196F3;
+    color: #ffffff;
+}
+
+button:hover {
+    filter: brightness(90%);
+}
