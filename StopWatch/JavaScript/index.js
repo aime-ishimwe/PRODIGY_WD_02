@@ -1,51 +1,73 @@
 const counter = document.getElementById("counter");
+const laps = document.getElementById("laps"); 
 let timer = null;
 let startTime = 0;
 let elapsedTime = 0;
 let isRunning = false;
+let lapStartTime = 0; 
 
-//function for the start button
-function start(){
-    if(!isRunning){
+// function to format elapsed time
+function formatTime(time) {
+    let hours = Math.floor(time / (1000 * 60 * 60));
+    let minutes = Math.floor((time / (1000 * 60)) % 60);
+    let seconds = Math.floor((time / 1000) % 60);
+    let milliseconds = Math.floor((time % 1000) / 10);
+
+    // Add leading zero if single digit
+    hours = String(hours).padStart(2, "0");
+    minutes = String(minutes).padStart(2, "0");
+    seconds = String(seconds).padStart(2, "0");
+    milliseconds = String(milliseconds).padStart(2, "0");
+
+    return `${hours}:${minutes}:${seconds}:${milliseconds}`;
+}
+
+// Start button function
+function start() {
+    if (!isRunning) {
         startTime = Date.now() - elapsedTime;
+        lapStartTime = startTime; 
         timer = setInterval(upDate, 10);
         isRunning = true;
     }
 }
 
-//function for the stop button
-function stop(){
-    if(isRunning){
+// Stop button function
+function stop() {
+    if (isRunning) {
         clearInterval(timer);
         elapsedTime = Date.now() - startTime;
         isRunning = false;
     }
 }
 
-//function for the reset button
-function reset(){
+// Reset button function
+function reset() {
     clearInterval(timer);
     startTime = 0;
     elapsedTime = 0;
+    lapStartTime = 0; 
     isRunning = false;
     counter.textContent = "00:00:00:00";
+    laps.innerHTML = ""; 
 }
 
+// Lap button function
+function lap() {
+    if (isRunning) {
+        const lapElapsedTime = Date.now() - lapStartTime;
+        const lapTime = formatTime(lapElapsedTime);
+        const lapElement = document.createElement("div");
+        lapElement.textContent = `Lap: ${lapTime}`;
+        laps.appendChild(lapElement); 
+        lapStartTime = Date.now(); 
+        console.log("Timer is not running"); 
+    }
+}
 
-function upDate(){
-    //display the hours, minutes, seconds and milliseconds on the timer
-    const CurrentTime = Date.now();
-    elapsedTime = CurrentTime - startTime;
-    let hours = Math.floor(elapsedTime / (1000 * 60 *60));
-    let minutes = Math.floor(elapsedTime / (1000 * 60) % 60);
-    let seconds = Math.floor(elapsedTime / 1000 % 60 );
-    let millisecods = Math.floor(elapsedTime % 1000 / 10 );
-
-    // display a "0" infront of single digit numbers on the clock
-    hours = String(hours).padStart(2, "0");
-    minutes = String(minutes).padStart(2, "0");
-    seconds = String(seconds).padStart(2, "0");
-    millisecods = String(millisecods).padStart(2, "0");
-
-    counter.textContent =`${hours}:${minutes}:${seconds}:${millisecods}`;
+// Update display function
+function upDate() {
+    const currentTime = Date.now();
+    elapsedTime = currentTime - startTime;
+    counter.textContent = formatTime(elapsedTime);
 }
