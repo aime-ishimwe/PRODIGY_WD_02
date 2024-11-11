@@ -4,9 +4,10 @@ let timer = null;
 let startTime = 0;
 let elapsedTime = 0;
 let isRunning = false;
-let lapStartTime = 0; 
+let lapStartTime = 0;
+let lapCount = 0; 
 
-// function to format elapsed time
+// Helper function to format elapsed time
 function formatTime(time) {
     let hours = Math.floor(time / (1000 * 60 * 60));
     let minutes = Math.floor((time / (1000 * 60)) % 60);
@@ -47,6 +48,7 @@ function reset() {
     startTime = 0;
     elapsedTime = 0;
     lapStartTime = 0; 
+    lapCount = 0; 
     isRunning = false;
     counter.textContent = "00:00:00:00";
     laps.innerHTML = ""; 
@@ -57,10 +59,12 @@ function lap() {
     if (isRunning) {
         const lapElapsedTime = Date.now() - lapStartTime;
         const lapTime = formatTime(lapElapsedTime);
+        lapCount++; // Increment lap count
         const lapElement = document.createElement("div");
-        lapElement.textContent = `Lap: ${lapTime}`;
+        lapElement.textContent = `Lap ${lapCount}: ${lapTime}`;
         laps.appendChild(lapElement); 
         lapStartTime = Date.now(); 
+    } else {
         console.log("Timer is not running"); 
     }
 }
